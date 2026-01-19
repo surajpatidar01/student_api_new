@@ -1,0 +1,26 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <list>
+          <option value="asgiref" />
+          <option value="distlib" />
+          <option value="Django" />
+          <option value="django-filter" />
+          <option value="djangorestframework" />
+          <option value="djangorestframework_simplejwt" />
+          <option value="filelock" />
+          <option value="platformdirs" />
+          <option value="PyJWT" />
+          <option value="sqlparse" />
+          <option value="stevedore" />
+          <option value="virtualenv" />
+          <option value="virtualenv-clone" />
+          <option value="virtualenvwrapper" />
+          <option value="virtualenvwrapper-win" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
