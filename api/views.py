@@ -178,6 +178,12 @@ class EmployeeViewset(viewsets.ViewSet):
 
 '''
 
+# MODEL VIEW SET
+#
+# class EmployeeViewset(viewsets.ModelViewSet):
+#     queryset = Employee.objects.all()
+#     serializer_class = EmployeeSerializer
+
 
 
 
