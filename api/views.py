@@ -1,5 +1,5 @@
 # from django.http import HttpResponse, JsonResponse
-# from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from django.http import Http404
 from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST, HTTP_200_OK
 from rest_framework.views import APIView
@@ -11,7 +11,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
 from employees.models import Employee
-from rest_framework import mixins,generics
+from rest_framework import mixins,generics,viewsets
 
 
 # Create your views here.
@@ -130,8 +130,8 @@ class EmployeesDetail(mixins.RetrieveModelMixin,mixins.UpdateModelMixin,mixins.D
         return self.destroy(request,pk)'''
 
 
+'''
 #Generic API view
-
 class Employees(generics.ListCreateAPIView):
     queryset =  Employee.objects.all()
     serializer_class = EmployeeSerializer
@@ -141,9 +141,42 @@ class EmployeesDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset =  Employee.objects.all()
     serializer_class = EmployeeSerializer
     lookup_field = 'pk'
+'''
 
+'''
+# VIEW SET
+class EmployeeViewset(viewsets.ViewSet):
+    def list(self,request):
+        queryset = Employee.objects.all()
+        serializer = EmployeeSerializer(queryset,many=True)
+        return Response(serializer.data)
 
+    def create(self,request):
+        serializer = EmployeeSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status = status.HTTP_200_OK)
+        return Response(serializer.errors)
 
+    def retrieve(self,request,pk):
+        employees = get_object_or_404(Employee,pk=pk)
+        serializer = EmployeeSerializer(employees)
+        return Response(serializer.data,status=status.HTTP_200_OK)
+
+    def update(self,request,pk):
+        employees = get_object_or_404(Employee,pk=pk)
+        serializer = EmployeeSerializer(employees,data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
+
+    def delete(self,request,pk):
+        employees = get_object_or_404(Employee,pk=pk)
+        employees.delete()
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+'''
 
 
 
