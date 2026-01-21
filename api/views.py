@@ -4,6 +4,8 @@ from django.http import Http404
 from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST, HTTP_200_OK
 from rest_framework.views import APIView
 
+from blogs.serializers import BLogSerializer, CommentSerializer
+
 from students.models import Student
 
 from . serializers import StudentSerializer,EmployeeSerializer
@@ -12,6 +14,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from employees.models import Employee
 from rest_framework import mixins,generics,viewsets
+from blogs.models import Blog,Comment
 
 
 # Create your views here.
@@ -179,24 +182,40 @@ class EmployeeViewset(viewsets.ViewSet):
 '''
 
 # MODEL VIEW SET
-#
-# class EmployeeViewset(viewsets.ModelViewSet):
-#     queryset = Employee.objects.all()
-#     serializer_class = EmployeeSerializer
+
+class EmployeeViewset(viewsets.ModelViewSet):
+    queryset = Employee.objects.all()
+    serializer_class = EmployeeSerializer(Blog)
 
 
 
 
 
 
+class BlogView(generics.ListCreateAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BLogSerializer
+
+
+
+class CommentView(generics.ListCreateAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+
+
+class BlogDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BLogSerializer
+    lookup_field = 'pk'
 
 
 
 
 
-
-
-
+class CommentDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    lookup_field = 'pk'
 
 
 

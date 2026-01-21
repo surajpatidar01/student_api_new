@@ -30,7 +30,7 @@ INSTALLED_APPS = [
     'students',
     'api',
     'employees',
-
+    'blogs',
 
 
 ]
